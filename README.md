@@ -5,8 +5,6 @@ Welcome to the QR Code Generator Web Application! This simple yet powerful tool 
 
 - **User-Friendly Interface:** The application provides an intuitive and user-friendly interface, making it easy for anyone to generate QR codes quickly.
 
-- **Customization Options:** Customize your QR codes by adjusting parameters such as size, color, and error correction level to meet your specific requirements.
-
 - **Cross-Browser Compatibility:** The application is designed to work seamlessly across different web browsers, ensuring a consistent experience for all users.
 
 ## Technologies Used
@@ -19,7 +17,7 @@ Welcome to the QR Code Generator Web Application! This simple yet powerful tool 
 
 ## How to Use
 
-1. Open the application in your preferred web browser.
+1. Open the [application](https://gz30eee.github.io/QR-Code-Generator/) in your preferred web browser.
 
 2. Enter the data you want to encode into the QR code.
 
