@@ -1,3 +1,6 @@
+![QR Code](https://github.com/GZ30eee/QR-Code-Generator/assets/130747789/73a2e9d5-1124-414a-bd08-987cf396aae4)
+
+
 # QR Code Generator
 Welcome to the QR Code Generator Web Application! This simple yet powerful tool allows you to generate QR codes for various purposes. Whether you need to share a URL, contact information, or any other data, this application has got you covered. The application is built using HTML, CSS, and JavaScript.
 
@@ -8,12 +11,7 @@ Welcome to the QR Code Generator Web Application! This simple yet powerful tool 
 - **Cross-Browser Compatibility:** The application is designed to work seamlessly across different web browsers, ensuring a consistent experience for all users.
 
 ## Technologies Used
-
-- **HTML:** The structure of the web pages is defined using HTML.
-
-- **CSS:** Cascading Style Sheets are used for styling and layout.
-
-- **JavaScript:** The functionality and dynamic features of the application are implemented using JavaScript.
+*Click on the icons to see the preview of the technologies used*
 
 ## How to Use
 
@@ -49,7 +47,10 @@ qr-code-generator/
 Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or create a pull request.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [https://www.mit.edu/~amini/LICENSE.md](LICENSE) file for details.
+
+## Contact
+For any queries you can conatact at my mail - ghza3006@gmail.com
 
 ## Acknowledgments
 Thank you for using the QR Code Generator Web Application! If you have any questions or feedback, feel free to reach out.
