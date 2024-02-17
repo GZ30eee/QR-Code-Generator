@@ -51,7 +51,7 @@ qr-code-generator/
 Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or create a pull request.
 
 ## License
-This project is licensed under the MIT License - see the [https://www.mit.edu/~amini/LICENSE.md](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://www.mit.edu/~amini/LICENSE.md) file for details.
 
 ## Contact
 For any queries you can conatact at my mail - ghza3006@gmail.com
