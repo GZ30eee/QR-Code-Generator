@@ -1,4 +1,4 @@
-![QR Code](https://github.com/GZ30eee/QR-Code-Generator/assets/130747789/73a2e9d5-1124-414a-bd08-987cf396aae4)
+![qr](https://github.com/GZ30eee/QR-Code-Generator/assets/130747789/a7c0d8b0-d970-423d-ac3a-ff898563695a)
 
 
 # QR Code Generator
