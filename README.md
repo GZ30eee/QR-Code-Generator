@@ -15,7 +15,7 @@ Welcome to the QR Code Generator Web Application! This simple yet powerful tool 
 
 [![My Skills](https://skillicons.dev/icons?i=html)](https://github.com/GZ30eee/QR-Code-Generator/blob/master/index.html)
 [![My Skills](https://skillicons.dev/icons?i=css)](https://github.com/GZ30eee/QR-Code-Generator/blob/master/style.css)
-[![My Skills](https://skillicons.dev/icons?i=js)](https://github.com/QR-Code-Generator/blob/master/script.js)
+[![My Skills](https://skillicons.dev/icons?i=js)](https://github.com/GZ30eee/QR-Code-Generator/blob/master/script.js)
 
 ## How to Use
 
