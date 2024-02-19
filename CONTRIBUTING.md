@@ -4,20 +4,20 @@ First off, thank you for considering contributing to this project. It's people l
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the Project Name Code of Conduct. By participating, you are expected to uphold this code.
+This project and everyone participating in it is governed by the QR Code Generator Code of Conduct. By participating, you are expected to uphold this code.
 
 ## How Can I Contribute?
 
 ### Reporting Bugs
 
-This section guides you through submitting a bug report for Project Name. Following these guidelines helps maintainers and the community understand your report, reproduce the behavior, and find related reports.
+This section guides you through submitting a bug report for QR Code Generator. Following these guidelines helps maintainers and the community understand your report, reproduce the behavior, and find related reports.
 
 - Use a clear and descriptive title for the issue to identify the problem.
 - Describe the exact steps which reproduce the problem in as many details as possible.
 
 ### Suggesting Enhancements
 
-This section guides you through submitting an enhancement suggestion for Project Name, including completely new features and minor improvements to existing functionality.
+This section guides you through submitting an enhancement suggestion for QR Code Generator, including completely new features and minor improvements to existing functionality.
 
 - Use a clear and descriptive title for the issue to identify the suggestion.
 - Provide a step-by-step description of the suggested enhancement in as many details as possible.
