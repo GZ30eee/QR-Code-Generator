@@ -54,7 +54,7 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 This project is licensed under the MIT License - see the [LICENSE](https://www.mit.edu/~amini/LICENSE.md) file for details.
 
 ## Contact
-For any queries you can conatact at my mail - ghza3006@gmail.com
+For any queries you can conatact at my mail - ghza3006@gmail.com(unoffoicai mail)
 
 ## Acknowledgments
 Thank you for using the QR Code Generator Web Application! If you have any questions or feedback, feel free to reach out.
