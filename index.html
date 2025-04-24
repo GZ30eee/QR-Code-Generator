@@ -2,34 +2,56 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Advanced QR Code Generator</title>
+    <title>QR Code Master</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
     <div class="wrapper">
       <header>
-        <h1>Advanced QR Code Generator</h1>
-        <p>Paste a URL or enter text to create a QR code</p>
+        <h1>QR Code Master</h1>
+        <div class="header-controls">
+          <button id="themeToggle" class="theme-toggle">
+            <i class="bx bx-moon"></i>
+          </button>
+          <p>Create custom QR codes with ease</p>
+        </div>
       </header>
       <div class="form">
-        <input type="text" spellcheck="false" placeholder="Enter text or URL" id="qr-input">
+        <div class="input-group">
+          <input type="text" spellcheck="false" placeholder="Enter text or URL" id="qr-input">
+          <button id="copy-btn" title="Copy text"><i class="bx bx-copy"></i></button>
+        </div>
         <div class="customization">
-          <div class="color-picker">
-            <label for="foreground">Foreground:</label>
-            <input type="color" id="foreground" value="#000000">
-            <label for="background">Background:</label>
-            <input type="color" id="background" value="#ffffff">
-          </div>
-          <div class="error-correction">
-            <label for="error-level">Error Correction:</label>
-            <select id="error-level">
-              <option value="L">Low (7%)</option>
-              <option value="M" selected>Medium (15%)</option>
-              <option value="Q">Quartile (25%)</option>
-              <option value="H">High (30%)</option>
-            </select>
+          <div class="custom-section">
+            <h3>Customize QR Code</h3>
+            <div class="color-picker">
+              <label for="foreground">Foreground:</label>
+              <input type="color" id="foreground" value="#000000">
+              <label for="background">Background:</label>
+              <input type="color" id="background" value="#ffffff">
+            </div>
+            <div class="options">
+              <div class="error-correction">
+                <label for="error-level">Error Correction:</label>
+                <select id="error-level">
+                  <option value="L">Low (7%)</option>
+                  <option value="M" selected>Medium (15%)</option>
+                  <option value="Q">Quartile (25%)</option>
+                  <option value="H">High (30%)</option>
+                </select>
+              </div>
+              <div class="size-selection">
+                <label for="qr-size">Size:</label>
+                <select id="qr-size">
+                  <option value="150">Small (150x150)</option>
+                  <option value="200" selected>Medium (200x200)</option>
+                  <option value="300">Large (300x300)</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
         <div class="buttons">
@@ -39,9 +61,9 @@
       </div>
       <div class="qr-code">
         <div class="loading-spinner" id="loading-spinner">
-          <i class="fas fa-spinner fa-spin"></i>
+          <div class="spinner-bar"></div>
         </div>
-        <img src="" alt="qr-code" id="qr-img">
+        <img src="" alt="QR Code" id="qr-img">
         <button id="download-btn">Download QR Code</button>
       </div>
     </div>
