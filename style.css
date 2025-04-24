@@ -1,12 +1,12 @@
 /* Import Google Font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
-body{
+body {
   display: flex;
   padding: 0 10px;
   min-height: 100vh;
@@ -14,35 +14,35 @@ body{
   background: linear-gradient(90deg, #282C33 0%, #202B2D 100%);
   justify-content: center;
 }
-::selection{
+::selection {
   color: #fff;
   background-color: black;
 }
-.wrapper{
-  height: 265px;
-  max-width: 410px;
+.wrapper {
+  height: auto;
+  max-width: 450px;
   background: #fff;
   border-radius: 10px;
-  padding: 20px 20px 0;
+  padding: 20px;
   transition: height 0.2s ease;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
-.wrapper.active{
-  height: 530px;
+.wrapper.active {
+  height: auto;
 }
-header h1{
+header h1 {
   font-size: 21px;
   font-weight: 500;
 }
-header p{
+header p {
   margin-top: 5px;
   color: #575757;
   font-size: 16px;
 }
-.wrapper .form{
-  margin: 20px 0 25px;
+.wrapper .form {
+  margin: 20px 0;
 }
-.form :where(input, button){
+.form :where(input, button, select) {
   width: 100%;
   height: 55px;
   border: none;
@@ -50,59 +50,117 @@ header p{
   border-radius: 5px;
   transition: 0.1s ease;
 }
-.form input{
+.form input {
   font-size: 18px;
   padding: 0 17px;
   border: 1px solid #999;
 }
-.form input:focus{
+.form input:focus {
   box-shadow: 0 3px 6px rgba(0,0,0,0.13);
 }
-.form input::placeholder{
+.form input::placeholder {
   color: #999;
 }
-.form button{
+.customization {
+  margin: 15px 0;
+}
+.color-picker, .error-correction {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.color-picker label, .error-correction label {
+  margin-right: 10px;
+  font-size: 14px;
+  color: #575757;
+}
+.color-picker input[type="color"] {
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+  cursor: pointer;
+}
+.error-correction select {
+  padding: 0 10px;
+  border: 1px solid #999;
+  font-size: 14px;
+}
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+.buttons button {
   color: #fff;
   cursor: pointer;
-  border-radius: 15px;
-  margin-top: 20px;
+  border-radius: 5px;
   font-size: 17px;
   background: linear-gradient(90deg, #6D90E8 0%, #6B37FB 100%);
+  flex: 1;
 }
-.qr-code{
+.buttons button#clear-btn {
+  background: linear-gradient(90deg, #E86D6D 0%, #FB3737 100%);
+}
+.qr-code {
   opacity: 0;
   display: flex;
-  padding: 33px 0;
+  flex-direction: column;
+  padding: 20px 0;
   border-radius: 5px;
   align-items: center;
   pointer-events: none;
   justify-content: center;
   border: 1px solid #ccc;
+  margin-top: 20px;
 }
-.wrapper.active .qr-code{
+.wrapper.active .qr-code {
   opacity: 1;
   pointer-events: auto;
   transition: opacity 0.5s 0.05s ease;
 }
-.qr-code img{
-  width: 170px;
+.qr-code img {
+  width: 200px;
+  margin-bottom: 15px;
+}
+#download-btn {
+  width: 200px;
+  height: 45px;
+  background: linear-gradient(90deg, #4CAF50 0%, #2E7D32 100%);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.loading-spinner {
+  display: none;
+  margin-bottom: 15px;
+}
+.loading-spinner i {
+  font-size: 40px;
+  color: #6B37FB;
+}
+.qr-code.loading .loading-spinner {
+  display: block;
+}
+.qr-code.loading img {
+  display: none;
 }
 
-@media (max-width: 430px){
-  .wrapper{
-    height: 255px;
-    padding: 16px 20px;
+@media (max-width: 430px) {
+  .wrapper {
+    padding: 16px;
   }
-  .wrapper.active{
-    height: 510px;
+  .color-picker, .error-correction {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  header p{
-    color: #696969;
+  .color-picker input[type="color"] {
+    margin: 5px 0;
   }
-  .form :where(input, button){
-    height: 52px;
+  .qr-code img {
+    width: 180px;
   }
-  .qr-code img{
-    width: 160px;
-  }  
+  #download-btn {
+    width: 180px;
+  }
 }
