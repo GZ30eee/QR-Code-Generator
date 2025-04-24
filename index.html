@@ -1,27 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">  
-    <title>QR Code Generator</title>
+    <meta charset="utf-8">
+    <title>Advanced QR Code Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
     <div class="wrapper">
       <header>
-        <h1>QR Code Generator</h1>
-        <p>Paste a url or enter text to create QR code</p>
+        <h1>Advanced QR Code Generator</h1>
+        <p>Paste a URL or enter text to create a QR code</p>
       </header>
       <div class="form">
-        <input type="text" spellcheck="false" placeholder="Enter text or url">
-        <button>Generate QR Code</button>
+        <input type="text" spellcheck="false" placeholder="Enter text or URL" id="qr-input">
+        <div class="customization">
+          <div class="color-picker">
+            <label for="foreground">Foreground:</label>
+            <input type="color" id="foreground" value="#000000">
+            <label for="background">Background:</label>
+            <input type="color" id="background" value="#ffffff">
+          </div>
+          <div class="error-correction">
+            <label for="error-level">Error Correction:</label>
+            <select id="error-level">
+              <option value="L">Low (7%)</option>
+              <option value="M" selected>Medium (15%)</option>
+              <option value="Q">Quartile (25%)</option>
+              <option value="H">High (30%)</option>
+            </select>
+          </div>
+        </div>
+        <div class="buttons">
+          <button id="generate-btn">Generate QR Code</button>
+          <button id="clear-btn">Clear</button>
+        </div>
       </div>
       <div class="qr-code">
-        <img src="" alt="qr-code">
+        <div class="loading-spinner" id="loading-spinner">
+          <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <img src="" alt="qr-code" id="qr-img">
+        <button id="download-btn">Download QR Code</button>
       </div>
     </div>
 
     <script src="script.js"></script>
-
   </body>
 </html>
