@@ -2,70 +2,428 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>QR Code Master</title>
+    <title>QR Code Master Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <!-- QR Code Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
   </head>
   <body>
     <div class="wrapper">
       <header>
-        <h1>QR Code Master</h1>
+        <h1>QR Code Master Pro</h1>
         <div class="header-controls">
-          <button id="themeToggle" class="theme-toggle">
+          <button id="themeToggle" class="theme-toggle" title="Toggle theme">
             <i class="bx bx-moon"></i>
           </button>
-          <p>Create custom QR codes with ease</p>
+          <p>Create, scan, and customize QR codes</p>
         </div>
       </header>
-      <div class="form">
-        <div class="input-group">
-          <input type="text" spellcheck="false" placeholder="Enter text or URL" id="qr-input">
-          <button id="copy-btn" title="Copy text"><i class="bx bx-copy"></i></button>
-        </div>
-        <div class="customization">
-          <div class="custom-section">
-            <h3>Customize QR Code</h3>
-            <div class="color-picker">
-              <label for="foreground">Foreground:</label>
-              <input type="color" id="foreground" value="#000000">
-              <label for="background">Background:</label>
-              <input type="color" id="background" value="#ffffff">
-            </div>
-            <div class="options">
-              <div class="error-correction">
-                <label for="error-level">Error Correction:</label>
-                <select id="error-level">
-                  <option value="L">Low (7%)</option>
-                  <option value="M" selected>Medium (15%)</option>
-                  <option value="Q">Quartile (25%)</option>
-                  <option value="H">High (30%)</option>
-                </select>
+
+      <!-- Tab Navigation -->
+      <div class="tab-container">
+        <div class="tab active" data-tab="generate">Generate</div>
+        <div class="tab" data-tab="scan">Scan QR</div>
+        <div class="tab" data-tab="history">History</div>
+        <div class="tab" data-tab="templates">Templates</div>
+      </div>
+
+      <!-- Generate Tab Content -->
+      <div class="tab-content active" id="generate-tab">
+        <div class="form">
+          <div class="input-group">
+            <input type="text" spellcheck="false" placeholder="Enter text or URL" id="qr-input">
+            <button id="copy-btn" title="Copy text"><i class="bx bx-copy"></i></button>
+          </div>
+          
+          <div class="customization">
+            <div class="custom-section">
+              <h3>Customize QR Code</h3>
+              
+              <div class="color-picker">
+                <label for="foreground">Foreground:</label>
+                <input type="color" id="foreground" value="#000000">
+                <label for="background">Background:</label>
+                <input type="color" id="background" value="#ffffff">
               </div>
-              <div class="size-selection">
-                <label for="qr-size">Size:</label>
-                <select id="qr-size">
-                  <option value="150">Small (150x150)</option>
-                  <option value="200" selected>Medium (200x200)</option>
-                  <option value="300">Large (300x300)</option>
-                </select>
+              
+              <div class="options">
+                <div class="error-correction">
+                  <label for="error-level">Error Correction:</label>
+                  <select id="error-level">
+                    <option value="L">Low (7%)</option>
+                    <option value="M" selected>Medium (15%)</option>
+                    <option value="Q">Quartile (25%)</option>
+                    <option value="H">High (30%)</option>
+                  </select>
+                </div>
+                <div class="size-selection">
+                  <label for="qr-size">Size:</label>
+                  <select id="qr-size">
+                    <option value="150">Small (150x150)</option>
+                    <option value="200" selected>Medium (200x200)</option>
+                    <option value="300">Large (300x300)</option>
+                    <option value="400">X-Large (400x400)</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="advanced-options">
+                <div class="collapsible">
+                  <button class="collapsible-btn">Advanced Options <i class="bx bx-chevron-down"></i></button>
+                  <div class="collapsible-content">
+                    <div class="style-options">
+                      <label for="dot-style">Dot Style:</label>
+                      <select id="dot-style">
+                        <option value="square" selected>Square</option>
+                        <option value="rounded">Rounded</option>
+                        <option value="dots">Dots</option>
+                        <option value="classy">Classy</option>
+                      </select>
+                    </div>
+                    
+                    <div class="logo-upload">
+                      <label for="logo-file">Add Logo (Optional):</label>
+                      <input type="file" id="logo-file" accept="image/*">
+                      <div class="logo-preview" id="logo-preview"></div>
+                      <button id="remove-logo" class="small-btn" style="display: none;">Remove Logo</button>
+                    </div>
+                    
+                    <div class="generation-mode">
+                      <label for="generation-mode">Generation Mode:</label>
+                      <select id="generation-mode">
+                        <option value="online" selected>Online (API)</option>
+                        <option value="offline">Offline (Local)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="buttons">
+            <button id="generate-btn">Generate QR Code</button>
+            <button id="clear-btn">Clear</button>
+          </div>
+        </div>
+        
+        <div class="qr-code">
+          <div class="loading-spinner" id="loading-spinner">
+            <div class="spinner-bar"></div>
+          </div>
+          <img src="/placeholder.svg" alt="QR Code" id="qr-img">
+          <canvas id="qr-canvas" style="display: none;"></canvas>
+          <div class="qr-actions">
+            <button id="download-btn"><i class="bx bx-download"></i> Download</button>
+            <div class="dropdown">
+              <button id="export-btn" class="dropdown-btn"><i class="bx bx-export"></i> Export As</button>
+              <div class="dropdown-content">
+                <a href="#" id="export-png">PNG Image</a>
+                <a href="#" id="export-svg">SVG Vector</a>
+                <a href="#" id="export-pdf">PDF Document</a>
+              </div>
+            </div>
+            <button id="share-btn"><i class="bx bx-share-alt"></i> Share</button>
+            <button id="save-btn"><i class="bx bx-bookmark"></i> Save</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scan Tab Content -->
+      <div class="tab-content" id="scan-tab">
+        <div class="scanner-container">
+          <div id="reader"></div>
+          <div class="scanner-result">
+            <h3>Scan Result</h3>
+            <div id="scan-result-container">
+              <p id="scan-result">No QR code scanned yet</p>
+              <div class="scan-actions" style="display: none;">
+                <button id="copy-scan"><i class="bx bx-copy"></i> Copy</button>
+                <button id="open-scan"><i class="bx bx-link-external"></i> Open</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="buttons">
-          <button id="generate-btn">Generate QR Code</button>
-          <button id="clear-btn">Clear</button>
+      </div>
+
+      <!-- History Tab Content -->
+      <div class="tab-content" id="history-tab">
+        <div class="history-container">
+          <div class="history-header">
+            <h3>QR Code History</h3>
+            <button id="clear-history" class="small-btn"><i class="bx bx-trash"></i> Clear All</button>
+          </div>
+          <div id="history-list" class="history-list">
+            <p class="empty-history">No QR codes in history yet</p>
+          </div>
         </div>
       </div>
-      <div class="qr-code">
-        <div class="loading-spinner" id="loading-spinner">
-          <div class="spinner-bar"></div>
+
+      <!-- Templates Tab Content -->
+      <div class="tab-content" id="templates-tab">
+        <div class="templates-container">
+          <h3>QR Code Templates</h3>
+          <div class="template-grid">
+            <div class="template-card" data-template="url">
+              <i class="bx bx-link"></i>
+              <h4>URL</h4>
+              <p>Create a QR code for a website link</p>
+            </div>
+            <div class="template-card" data-template="text">
+              <i class="bx bx-text"></i>
+              <h4>Text</h4>
+              <p>Create a QR code for plain text</p>
+            </div>
+            <div class="template-card" data-template="email">
+              <i class="bx bx-envelope"></i>
+              <h4>Email</h4>
+              <p>Create a QR code to send an email</p>
+            </div>
+            <div class="template-card" data-template="wifi">
+              <i class="bx bx-wifi"></i>
+              <h4>WiFi</h4>
+              <p>Create a QR code to connect to WiFi</p>
+            </div>
+            <div class="template-card" data-template="vcard">
+              <i class="bx bx-id-card"></i>
+              <h4>vCard</h4>
+              <p>Create a QR code for contact information</p>
+            </div>
+            <div class="template-card" data-template="phone">
+              <i class="bx bx-phone"></i>
+              <h4>Phone</h4>
+              <p>Create a QR code to dial a phone number</p>
+            </div>
+            <div class="template-card" data-template="sms">
+              <i class="bx bx-message"></i>
+              <h4>SMS</h4>
+              <p>Create a QR code to send a text message</p>
+            </div>
+            <div class="template-card" data-template="geo">
+              <i class="bx bx-map"></i>
+              <h4>Location</h4>
+              <p>Create a QR code for a geographic location</p>
+            </div>
+          </div>
         </div>
-        <img src="" alt="QR Code" id="qr-img">
-        <button id="download-btn">Download QR Code</button>
       </div>
+
+      <!-- Template Forms (Hidden by default) -->
+      <div id="template-forms" class="template-forms">
+        <!-- URL Template Form -->
+        <div class="template-form" id="url-form">
+          <h3>URL QR Code</h3>
+          <div class="form-group">
+            <label for="url-input">Website URL:</label>
+            <input type="url" id="url-input" placeholder="https://example.com">
+          </div>
+          <div class="template-buttons">
+            <button class="template-generate">Generate</button>
+            <button class="template-cancel">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Email Template Form -->
+        <div class="template-form" id="email-form">
+          <h3>Email QR Code</h3>
+          <div class="form-group">
+            <label for="email-address">Email Address:</label>
+            <input type="email" id="email-address" placeholder="recipient@example.com">
+          </div>
+          <div class="form-group">
+            <label for="email-subject">Subject (Optional):</label>
+            <input type="text" id="email-subject" placeholder="Email Subject">
+          </div>
+          <div class="form-group">
+            <label for="email-body">Body (Optional):</label>
+            <textarea id="email-body" placeholder="Email Body"></textarea>
+          </div>
+          <div class="template-buttons">
+            <button class="template-generate">Generate</button>
+            <button class="template-cancel">Cancel</button>
+          </div>
+        </div>
+
+        <!-- WiFi Template Form -->
+        <div class="template-form" id="wifi-form">
+          <h3>WiFi QR Code</h3>
+          <div class="form-group">
+            <label for="wifi-ssid">Network Name (SSID):</label>
+            <input type="text" id="wifi-ssid" placeholder="WiFi Network Name">
+          </div>
+          <div class="form-group">
+            <label for="wifi-password">Password:</label>
+            <input type="password" id="wifi-password" placeholder="WiFi Password">
+            <button id="toggle-password" class="toggle-password" title="Toggle Password Visibility"><i class="bx bx-hide"></i></button>
+          </div>
+          <div class="form-group">
+            <label for="wifi-encryption">Encryption:</label>
+            <select id="wifi-encryption">
+              <option value="WPA">WPA/WPA2/WPA3</option>
+              <option value="WEP">WEP</option>
+              <option value="nopass">No Password</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="wifi-hidden">Hidden Network:</label>
+            <input type="checkbox" id="wifi-hidden">
+          </div>
+          <div class="template-buttons">
+            <button class="template-generate">Generate</button>
+            <button class="template-cancel">Cancel</button>
+          </div>
+        </div>
+
+        <!-- vCard Template Form -->
+        <div class="template-form" id="vcard-form">
+          <h3>vCard QR Code</h3>
+          <div class="form-group">
+            <label for="vcard-name">Full Name:</label>
+            <input type="text" id="vcard-name" placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label for="vcard-phone">Phone Number:</label>
+            <input type="tel" id="vcard-phone" placeholder="+1234567890">
+          </div>
+          <div class="form-group">
+            <label for="vcard-email">Email:</label>
+            <input type="email" id="vcard-email" placeholder="john@example.com">
+          </div>
+          <div class="form-group">
+            <label for="vcard-company">Company (Optional):</label>
+            <input type="text" id="vcard-company" placeholder="Company Name">
+          </div>
+          <div class="form-group">
+            <label for="vcard-title">Job Title (Optional):</label>
+            <input type="text" id="vcard-title" placeholder="Job Title">
+          </div>
+          <div class="form-group">
+            <label for="vcard-address">Address (Optional):</label>
+            <input type="text" id="vcard-address" placeholder="123 Main St, City, Country">
+          </div>
+          <div class="form-group">
+            <label for="vcard-website">Website (Optional):</label>
+            <input type="url" id="vcard-website" placeholder="https://example.com">
+          </div>
+          <div class="template-buttons">
+            <button class="template-generate">Generate</button>
+            <button class="template-cancel">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Phone Template Form -->
+        <div class="template-form" id="phone-form">
+          <h3>Phone QR Code</h3>
+          <div class="form-group">
+            <label for="phone-number">Phone Number:</label>
+            <input type="tel" id="phone-number" placeholder="+1234567890">
+          </div>
+          <div class="template-buttons">
+            <button class="template-generate">Generate</button>
+            <button class="template-cancel">Cancel</button>
+          </div>
+        </div>
+
+        <!-- SMS Template Form -->
+        <div class="template-form" id="sms-form">
+          <h3>SMS QR Code</h3>
+          <div class="form-group">
+            <label for="sms-number">Phone Number:</label>
+            <input type="tel" id="sms-number" placeholder="+1234567890">
+          </div>
+          <div class="form-group">
+            <label for="sms-message">Message (Optional):</label>
+            <textarea id="sms-message" placeholder="Your message here"></textarea>
+          </div>
+          <div class="template-buttons">
+            <button class="template-generate">Generate</button>
+            <button class="template-cancel">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Geo Location Template Form -->
+        <div class="template-form" id="geo-form">
+          <h3>Location QR Code</h3>
+          <div class="form-group">
+            <label for="geo-latitude">Latitude:</label>
+            <input type="number" step="any" id="geo-latitude" placeholder="37.7749">
+          </div>
+          <div class="form-group">
+            <label for="geo-longitude">Longitude:</label>
+            <input type="number" step="any" id="geo-longitude" placeholder="-122.4194">
+          </div>
+          <div class="form-group">
+            <button id="get-current-location" class="small-btn">Get Current Location</button>
+          </div>
+          <div class="template-buttons">
+            <button class="template-generate">Generate</button>
+            <button class="template-cancel">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Text Template Form -->
+        <div class="template-form" id="text-form">
+          <h3>Text QR Code</h3>
+          <div class="form-group">
+            <label for="text-content">Text Content:</label>
+            <textarea id="text-content" placeholder="Enter your text here"></textarea>
+          </div>
+          <div class="template-buttons">
+            <button class="template-generate">Generate</button>
+            <button class="template-cancel">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div class="modal" id="share-modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3>Share QR Code</h3>
+        <div class="share-options">
+          <button class="share-btn" data-platform="facebook">
+            <i class="bx bxl-facebook"></i> Facebook
+          </button>
+          <button class="share-btn" data-platform="twitter">
+            <i class="bx bxl-twitter"></i> Twitter
+          </button>
+          <button class="share-btn" data-platform="linkedin">
+            <i class="bx bxl-linkedin"></i> LinkedIn
+          </button>
+          <button class="share-btn" data-platform="whatsapp">
+            <i class="bx bxl-whatsapp"></i> WhatsApp
+          </button>
+          <button class="share-btn" data-platform="telegram">
+            <i class="bx bxl-telegram"></i> Telegram
+          </button>
+          <button class="share-btn" data-platform="email">
+            <i class="bx bx-envelope"></i> Email
+          </button>
+        </div>
+        <div class="share-link">
+          <input type="text" id="share-url" readonly title="Shareable URL" placeholder="Shareable URL">
+          <button id="copy-share-url" title="Copy shareable URL"><i class="bx bx-copy"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+      <div class="toast-content">
+        <i class="bx bx-check-circle"></i>
+        <div class="message">
+          <span class="text text-1">Success</span>
+          <span class="text text-2">Your action was successful</span>
+        </div>
+      </div>
+      <i class="bx bx-x close"></i>
+      <div class="progress"></div>
     </div>
 
     <script src="script.js"></script>
